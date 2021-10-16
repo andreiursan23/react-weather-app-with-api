@@ -1,0 +1,31 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+* {
+  font-size: 1.2rem;
+}
+
+.body {
+  height: 85vh;
+}
+
+.home {
+  width: 65vw;
+}
+
+.footer {
+  text-align: center;
+  height: 4rem;
+  width: 100vw;
+  background-color: #F8F9FB;
+  position: fixed;
+  bottom: 0;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #212529;
+}
+
+.footer a:hover {
+  color: grey;
+}
