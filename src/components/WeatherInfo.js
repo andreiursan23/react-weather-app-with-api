@@ -44,7 +44,7 @@ const WeatherInfo = () => {
     return(
         <div className="body d-flex justify-content-center align-items-center container-fluid">
             <div>
-                <Card style={{ width: '20rem', height: '20rem' , textAlign: 'center' }} className="align-items-center justify-content-center">
+                <Card style={{ width: '18rem', height: '23rem' , textAlign: 'center' }} className="align-items-center justify-content-center">
                     {
                         isLoading ? 
                         <WeatherSpinner loading={isLoading} /> : 
