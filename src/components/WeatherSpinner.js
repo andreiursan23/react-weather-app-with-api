@@ -1,5 +1,4 @@
 import ClipLoader from "react-spinners/ScaleLoader";
-import { useState } from "react";
 
 const WeatherSpinner = ({ loading }) => {
     let color = "#949596";
