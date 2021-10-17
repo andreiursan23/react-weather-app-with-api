@@ -5,7 +5,7 @@ const WeatherSpinner = ({ loading }) => {
 
     return (
       <div className="sweet-loading">
-        <ClipLoader color={color} loading={loading} size={150} />
+        <ClipLoader color={color} loading={loading} height={50} width={6} radius={3} margin={3} />
       </div>
     );
 }
