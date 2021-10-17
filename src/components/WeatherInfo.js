@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from 'react-router-dom';
 import { Card } from "react-bootstrap";
+import WeatherSpinner from "./WeatherSpinner";
+import WeatherCardBody from "./WeatherCardBody";
 
 const WeatherInfo = () => {
     const { city } = useParams();
@@ -18,37 +20,36 @@ const WeatherInfo = () => {
     let location = `${city},${country}`;
     const clientId = 'IqHLl3piNO1rqL9gWXOz9';
     const clientSecret = 'bgqQURKm99Sbk1fIZMvu7CjlcpeBF9152ljfUQXf';
-  
+
+    let [isLoading, setIsLoading] = useState(null);
   
     useEffect(() => {
-      axios
-      .get(`https://api.aerisapi.com/conditions/summary/${location}?format=json&client_id=${clientId}&client_secret=${clientSecret}`)
-      .then(response => {
-        setMinC(response.data.response[0].periods[0].temp.minC);
-        setMaxC(response.data.response[0].periods[0].temp.maxC);
-        setFeelsLikeMinC(response.data.response[0].periods[0].feelslike.minC);
-        setFeelsLikeMaxC(response.data.response[0].periods[0].feelslike.maxC);
-        setWeatherImage(response.data.response[0].periods[0].weather.icon);
-        setWeatherDescription(response.data.response[0].periods[0].weather.phrase);
-      })
-      .catch(() => {
-        alert('Not communicating with the server!');
-      })
+        setIsLoading(true);
+        axios
+            .get(`https://api.aerisapi.com/conditions/summary/${location}?format=json&client_id=${clientId}&client_secret=${clientSecret}`)
+            .then(response => {
+                setMinC(response.data.response[0].periods[0].temp.minC);
+                setMaxC(response.data.response[0].periods[0].temp.maxC);
+                setFeelsLikeMinC(response.data.response[0].periods[0].feelslike.minC);
+                setFeelsLikeMaxC(response.data.response[0].periods[0].feelslike.maxC);
+                setWeatherImage(response.data.response[0].periods[0].weather.icon);
+                setWeatherDescription(response.data.response[0].periods[0].weather.phrase);
+                setIsLoading(false);
+            })
+            .catch(() => {
+                alert('Not communicating with the server!');
+            })
     }, [location]);
-
-    if (minC === 0 && maxC === 0 && feelLikeMinC === 0 && feelLikeMaxC === 0 && weatherImage === null && weatherDescription === null) return <></>
-
+    
     return(
         <div className="body d-flex justify-content-center align-items-center container-fluid">
             <div>
-                <Card style={{ width: '20rem', height: '20rem' , textAlign: 'center' }} className="align-items-center">
-                    <Card.Img variant="top" src={`/images/${weatherImage}`} style={{ width: '4rem' }} />
-                    <Card.Body>
-                        <Card.Title className="mb-4">{capitalizedCity}</Card.Title>
-                        <Card.Text>
-                            The weather today is <strong>{weatherDescription}</strong> with a minimum temperature of {minC}&#8451; that feels like {feelLikeMinC}&#8451; and a maximum temperature of {maxC}&#8451; that feels like {feelLikeMaxC}&#8451;.
-                        </Card.Text>
-                    </Card.Body>
+                <Card style={{ width: '20rem', height: '20rem' , textAlign: 'center' }} className="align-items-center justify-content-center">
+                    {
+                        isLoading ? 
+                        <WeatherSpinner loading={isLoading} /> : 
+                        <WeatherCardBody weatherImage={weatherImage} capitalizedCity={capitalizedCity} weatherDescription={weatherDescription} minC={minC} maxC={maxC} feelLikeMinC={feelLikeMinC} feelLikeMaxC={feelLikeMaxC} />
+                    }
                 </Card>
             </div>
         </div>
