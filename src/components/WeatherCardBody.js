@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 const WeatherCardBody = ({ weatherImage, capitalizedCity, weatherDescription, minC, maxC, feelLikeMinC, feelLikeMaxC }) => {
     return(
         <div className="weather-card">
-            <Card.Img variant="top" src={`/images/${weatherImage}`} style={{ width: '4rem' }} />
+            <Card.Img height="76.8px" width="76.8px" variant="top" src={`/images/${weatherImage}`} style={{ width: '4rem' }} />
             <Card.Body>
                 <Card.Title className="mb-4">{capitalizedCity}</Card.Title>
                 <Card.Text>
